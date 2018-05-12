@@ -1,5 +1,5 @@
 {
-    "name": "knpuniversity/symfony",
+    "name": "babatec/optic",
     "license": "proprietary",
     "type": "project",
     "autoload": {

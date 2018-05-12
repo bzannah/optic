@@ -12,11 +12,19 @@ class GenusController extends Controller
 {
     /**
      * @Route("/genus/{genusName}")
+     * @param $genusName
+     * @return Response
      */
     public function showAction($genusName)
     {
+        $funFact = 'Octopuses can change the color of their *body in just three-tenths* of a second!';
+
+        $funFact = $this->get('knp\bundle\markdownbundle\markdownparserinterface')
+            ->transformMarkdown($funFact);
+
         return $this->render('genus/show.html.twig', array(
             'name' => $genusName,
+            'funFact' => $funFact
         ));
     }
 
