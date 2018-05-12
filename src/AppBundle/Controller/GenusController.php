@@ -19,8 +19,17 @@ class GenusController extends Controller
     {
         $funFact = 'Octopuses can change the color of their *body in just three-tenths* of a second!';
 
-        $funFact = $this->get('knp\bundle\markdownbundle\markdownparserinterface')
-            ->transformMarkdown($funFact);
+        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
+
+        $cacheKey = md5($funFact);
+        if($cache->contains($cacheKey)) {
+            $funFact = $cache->fetch($cacheKey);
+        } else {
+            sleep(1);
+            $funFact = $this->get('knp\bundle\markdownbundle\markdownparserinterface')
+                ->transformMarkdown($funFact);
+            $cache->save($cacheKey, $funFact);
+        }
 
         return $this->render('genus/show.html.twig', array(
             'name' => $genusName,

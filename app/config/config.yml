@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    cache_type: file_system
 
 framework:
     #esi:             ~
@@ -37,7 +38,10 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
+    number_format:
+        decimals: 0
+        decimal_point: .
+        thousands_separator: ','
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -60,10 +64,10 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
-# Swiftmailer Configuration
-swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+# Doctrine Cache Configuration
+doctrine_cache:
+    providers:
+        my_markdown_cache:
+            type: '%cache_type%'
+            file_system:
+                directory: %kernel.cache_dir%/markdown_cache
