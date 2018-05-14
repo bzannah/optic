@@ -5,3 +5,11 @@ AppBundle\Entity\Genus:
         speciesCount: <numberBetween(200, 1000)>
         funFact: <sentence()>
         isPublished: <boolean(75)>
+
+AppBundle\Entity\GenusNote:
+    genus.note_{1..100}:
+        username: <userName()>
+        userAvatarFilename: '50%? leanna.jpeg : ryan.jpeg'
+        note: <paragraph()>
+        createdAt: <dateTimeBetween('-6 months', 'now')>
+        genus: '@genus_*' # select random that's been created by the fixtures above
