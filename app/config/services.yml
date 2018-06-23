@@ -7,3 +7,17 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.markdown_transformer:
+        class: AppBundle\Service\MarkdownTransformer
+        arguments:
+            - '@knp\bundle\markdownbundle\markdownparserinterface'
+            - '@doctrine_cache.providers.my_markdown_cache'
+
+    app.markdown_extension:
+        class: AppBundle\Twig\MarkdownExtension
+        tags:
+            - {name: twig.extension}
+        # arguments:
+        #     '@app.markdown_transformer'
+        autowire: true
